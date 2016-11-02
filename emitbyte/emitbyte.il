@@ -43,6 +43,8 @@
     // Code size       13 (0xd)
     .maxstack  8
     IL_0000:  nop
+              br.s IL_0001
+              .emitbyte 0x24
     IL_0001:  ldstr      "Secret string"
     IL_0006:  call       void [mscorlib]System.Console::WriteLine(string)
     IL_000b:  nop

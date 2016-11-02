@@ -23,14 +23,26 @@
   .ver 0:0:0:0
 }
 .module module_inject.exe
-// MVID: {99DEFD81-A9BE-4E6D-BDAC-916EE8CF2FFF}
+// MVID: {BFE1A978-7F59-4DCF-9D26-D87047238CA2}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x00DB0000
+// Image base: 0x014B0000
 
+
+// GLOBAL
+.method private hidebysig specialname rtspecialname static 
+    void .cctor () cil managed 
+  {
+    // Method begins at RVA 0x2050
+    // Code size 6 (0x6)
+    .maxstack 8
+
+    IL_0000: call void module_inject.Cache::Init()
+    IL_0005: ret
+  }
 
 // =============== CLASS MEMBERS DECLARATION ===================
 
@@ -122,6 +134,17 @@
     IL_0012:  nop
     IL_0013:  ret
   } // end of method Cache::.ctor
+
+  .method public hidebysig static void  Init() cil managed
+  {
+    // Code size       13 (0xd)
+    .maxstack  8
+    IL_0000:  nop
+    IL_0001:  ldstr      "Cache.Init()"
+    IL_0006:  call       void [mscorlib]System.Console::WriteLine(string)
+    IL_000b:  nop
+    IL_000c:  ret
+  } // end of method Cache::Init
 
 } // end of class module_inject.Cache
 

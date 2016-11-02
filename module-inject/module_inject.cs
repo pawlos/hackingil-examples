@@ -38,5 +38,10 @@ namespace module_inject
 		{
 			Console.WriteLine("Inside Cache .ctor");
 		}
+
+		public static void Init()
+		{
+			Console.WriteLine("Cache.Init()");
+		}
 	}
 }
