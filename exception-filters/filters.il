@@ -23,13 +23,13 @@
   .ver 0:0:0:0
 }
 .module exception_filters.exe
-// MVID: {D3A2F960-CBC4-4B9C-A111-B04293EE71A5}
+// MVID: {7A872B51-DA7E-47F0-878D-5898F942AA11}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x00E60000
+// Image base: 0x01070000
 
 
 // =============== CLASS MEMBERS DECLARATION ===================
@@ -40,57 +40,66 @@
   .method private hidebysig static void  Main(string[] args) cil managed
   {
     .entrypoint
-    // Code size       51 (0x33)
+    // Code size       58 (0x3a)
     .maxstack  2
-    .locals init (class [mscorlib]System.Exception V_0,
-             bool V_1)
+    .locals init (bool V_0,
+             class [mscorlib]System.Exception V_1,
+             bool V_2)
     IL_0000:  nop
+    IL_0001:  ldarg.0
+    IL_0002:  ldlen
+    IL_0003:  ldc.i4.0
+    IL_0004:  cgt.un
+    IL_0006:  stloc.0
     .try
     {
-      IL_0001:  nop
-      IL_0002:  newobj     instance void [mscorlib]System.Exception::.ctor()
-      IL_0007:  throw
+      IL_0007:  nop
+      IL_0008:  newobj     instance void [mscorlib]System.Exception::.ctor()
+      IL_000d:  throw
 
     }  // end .try
     filter
     {
-      IL_0008:  isinst     [mscorlib]System.Exception
-      IL_000d:  dup
-      IL_000e:  brtrue.s   IL_0014
+      IL_000e:  isinst     [mscorlib]System.Exception
+      IL_0013:  dup
+      IL_0014:  brtrue.s   IL_001a
 
-      IL_0010:  pop
-      IL_0011:  ldc.i4.0
-      IL_0012:  br.s       IL_0020
+      IL_0016:  pop
+      IL_0017:  ldc.i4.0
+      IL_0018:  br.s       IL_0027
 
-      IL_0014:  stloc.0
-      IL_0015:  ldloc.0
-      IL_0016:  call       bool exception_filters.exception_filters_demo::PleaseCatchAll(class [mscorlib]System.Exception)
-      IL_001b:  stloc.1
-      IL_001c:  ldloc.1
-      IL_001d:  ldc.i4.0
-      IL_001e:  cgt.un
-      IL_0020:  endfilter
+      IL_001a:  stloc.1
+      IL_001b:  ldloc.1
+      IL_001c:  ldloc.0
+      IL_001d:  call       bool exception_filters.exception_filters_demo::PleaseCatchAll(class [mscorlib]System.Exception,
+                                                                                         bool)
+      IL_0022:  stloc.2
+      IL_0023:  ldloc.2
+      IL_0024:  ldc.i4.0
+      IL_0025:  cgt.un
+      IL_0027:  endfilter
     }  // end filter
     {  // handler
-      IL_0022:  pop
-      IL_0023:  nop
-      IL_0024:  ldstr      "We got it!"
-      IL_0029:  call       void [mscorlib]System.Console::WriteLine(string)
-      IL_002e:  nop
-      IL_002f:  nop
-      IL_0030:  leave.s    IL_0032
+      IL_0029:  pop
+      IL_002a:  nop
+      IL_002b:  ldstr      "We got it!"
+      IL_0030:  call       void [mscorlib]System.Console::WriteLine(string)
+      IL_0035:  nop
+      IL_0036:  nop
+      IL_0037:  leave.s    IL_0039
 
     }  // end handler
-    IL_0032:  ret
+    IL_0039:  ret
   } // end of method exception_filters_demo::Main
 
-  .method private hidebysig static bool  PleaseCatchAll(class [mscorlib]System.Exception ex) cil managed
+  .method private hidebysig static bool  PleaseCatchAll(class [mscorlib]System.Exception ex,
+                                                        bool shouldCatch) cil managed
   {
     // Code size       7 (0x7)
     .maxstack  1
     .locals init (bool V_0)
     IL_0000:  nop
-    IL_0001:  ldc.i4.1
+    IL_0001:  ldarg.1
     IL_0002:  stloc.0
     IL_0003:  br.s       IL_0005
 

@@ -23,13 +23,13 @@
   .ver 0:0:0:0
 }
 .module try_fault.exe
-// MVID: {9A1E32FD-5FFF-4AD2-9B64-54333DD73B7D}
+// MVID: {CC3AC84D-0CFA-477B-B665-36A7B74EAF6D}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x02590000
+// Image base: 0x013A0000
 
 
 // =============== CLASS MEMBERS DECLARATION ===================
@@ -40,28 +40,37 @@
   .method public hidebysig static void  Main(string[] args) cil managed
   {
     .entrypoint
-    // Code size       37 (0x25)
-    .maxstack  8
+    // Code size       45 (0x2d)
+    .maxstack  3
+    .locals init (bool V_0)
     IL_0000:  nop
-    IL_0001:  call       class [mscorlib]System.AppDomain [mscorlib]System.AppDomain::get_CurrentDomain()
-    IL_0006:  ldnull
-    IL_0007:  ldftn      void try_fault.try_fault_example::UnhandledExceptionTrapper(object,
+    IL_0001:  ldarg.0
+    IL_0002:  ldlen
+    IL_0003:  ldc.i4.0
+    IL_0004:  cgt.un
+    IL_0006:  stloc.0
+    IL_0007:  call       class [mscorlib]System.AppDomain [mscorlib]System.AppDomain::get_CurrentDomain()
+    IL_000c:  ldnull
+    IL_000d:  ldftn      void try_fault.try_fault_example::UnhandledExceptionTrapper(object,
                                                                                      class [mscorlib]System.UnhandledExceptionEventArgs)
-    IL_000d:  newobj     instance void [mscorlib]System.UnhandledExceptionEventHandler::.ctor(object,
+    IL_0013:  newobj     instance void [mscorlib]System.UnhandledExceptionEventHandler::.ctor(object,
                                                                                               native int)
-    IL_0012:  callvirt   instance void [mscorlib]System.AppDomain::add_UnhandledException(class [mscorlib]System.UnhandledExceptionEventHandler)
-    IL_0017:  nop
-    IL_0018:  call       void try_fault.try_fault_example::try_catch()
+    IL_0018:  callvirt   instance void [mscorlib]System.AppDomain::add_UnhandledException(class [mscorlib]System.UnhandledExceptionEventHandler)
     IL_001d:  nop
-    IL_001e:  call       void try_fault.try_fault_example::try_finally()
-    IL_0023:  nop
-    IL_0024:  ret
+    IL_001e:  ldloc.0
+    IL_001f:  call       void try_fault.try_fault_example::try_catch(bool)
+    IL_0024:  nop
+    IL_0025:  ldloc.0
+    IL_0026:  call       void try_fault.try_fault_example::try_finally(bool)
+    IL_002b:  nop
+    IL_002c:  ret
   } // end of method try_fault_example::Main
 
-  .method public hidebysig static void  try_catch() cil managed
+  .method public hidebysig static void  try_catch(bool shouldThrow) cil managed
   {
-    // Code size       41 (0x29)
+    // Code size       49 (0x31)
     .maxstack  1
+    .locals init (bool V_0)
     IL_0000:  nop
     .try
     {
@@ -69,29 +78,38 @@
       IL_0002:  ldstr      "try_catch: try"
       IL_0007:  call       void [mscorlib]System.Console::WriteLine(string)
       IL_000c:  nop
-      IL_000d:  ldstr      "try_catch"
-      IL_0012:  newobj     instance void [mscorlib]System.Exception::.ctor(string)
-      IL_0017:  throw
+      IL_000d:  ldarg.0
+      IL_000e:  stloc.0
+      IL_000f:  ldloc.0
+      IL_0010:  brfalse.s  IL_001d
+
+      IL_0012:  ldstr      "try_catch"
+      IL_0017:  newobj     instance void [mscorlib]System.Exception::.ctor(string)
+      IL_001c:  throw
+
+      IL_001d:  nop
+      IL_001e:  leave.s    IL_0030
 
     }  // end .try
     catch [mscorlib]System.Exception 
     {
-      IL_0018:  pop
-      IL_0019:  nop
-      IL_001a:  ldstr      "try_catch: catch"
-      IL_001f:  call       void [mscorlib]System.Console::WriteLine(string)
-      IL_0024:  nop
-      IL_0025:  nop
-      IL_0026:  leave.s    IL_0028
+      IL_0020:  pop
+      IL_0021:  nop
+      IL_0022:  ldstr      "try_catch: catch"
+      IL_0027:  call       void [mscorlib]System.Console::WriteLine(string)
+      IL_002c:  nop
+      IL_002d:  nop
+      IL_002e:  leave.s    IL_0030
 
     }  // end handler
-    IL_0028:  ret
+    IL_0030:  ret
   } // end of method try_fault_example::try_catch
 
-  .method public hidebysig static void  try_finally() cil managed
+  .method public hidebysig static void  try_finally(bool shouldThrow) cil managed
   {
-    // Code size       38 (0x26)
+    // Code size       47 (0x2f)
     .maxstack  1
+    .locals init (bool V_0)
     IL_0000:  nop
     .try
     {
@@ -99,20 +117,29 @@
       IL_0002:  ldstr      "try_finally: try"
       IL_0007:  call       void [mscorlib]System.Console::WriteLine(string)
       IL_000c:  nop
-      IL_000d:  ldstr      "try_finally"
-      IL_0012:  newobj     instance void [mscorlib]System.Exception::.ctor(string)
-      IL_0017:  throw
+      IL_000d:  ldarg.0
+      IL_000e:  stloc.0
+      IL_000f:  ldloc.0
+      IL_0010:  brfalse.s  IL_001d
+
+      IL_0012:  ldstr      "try_finally"
+      IL_0017:  newobj     instance void [mscorlib]System.Exception::.ctor(string)
+      IL_001c:  throw
+
+      IL_001d:  nop
+      IL_001e:  leave.s    IL_002e
 
     }  // end .try
     finally
     {
-      IL_0018:  nop
-      IL_0019:  ldstr      "try_finally: finally"
-      IL_001e:  call       void [mscorlib]System.Console::WriteLine(string)
-      IL_0023:  nop
-      IL_0024:  nop
-      IL_0025:  endfinally
+      IL_0020:  nop
+      IL_0021:  ldstr      "try_finally: finally"
+      IL_0026:  call       void [mscorlib]System.Console::WriteLine(string)
+      IL_002b:  nop
+      IL_002c:  nop
+      IL_002d:  endfinally
     }  // end handler
+    IL_002e:  ret
   } // end of method try_fault_example::try_finally
 
   .method public hidebysig static void  UnhandledExceptionTrapper(object sender,

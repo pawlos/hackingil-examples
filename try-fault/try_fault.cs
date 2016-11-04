@@ -6,17 +6,19 @@ namespace try_fault
     {
         public static void Main(string[] args)
         {
+            bool shouldThrow = args.Length > 0;
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionTrapper;
-            try_catch();
-            try_finally();
+            try_catch(shouldThrow);
+            try_finally(shouldThrow);
         }
 
-        public static void try_catch()
+        public static void try_catch(bool shouldThrow)
         {
             try
             {
                 Console.WriteLine("try_catch: try");
-                throw new Exception("try_catch");
+                if (shouldThrow)
+                    throw new Exception("try_catch");
             }
             catch (System.Exception)
             {
@@ -24,12 +26,13 @@ namespace try_fault
             }
         }
 
-        public static void try_finally()
+        public static void try_finally(bool shouldThrow)
         {
             try
             {
                 Console.WriteLine("try_finally: try");
-                throw new Exception("try_finally");
+                if (shouldThrow)
+                    throw new Exception("try_finally");
             }
             finally
             {
