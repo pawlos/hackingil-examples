@@ -4,14 +4,15 @@ namespace obfuscate
 {
     class obfuscate
     {
+        static Random r = new Random();
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello obfusacate");
+            Console.WriteLine($"Hello obfusacate. Your password is: {CheckPassword()}");
         }
 
-        static int Method1()
+        static int CheckPassword()
         {
-            return 0;
+            return r.Next() % 1337;
         }
     }
 }

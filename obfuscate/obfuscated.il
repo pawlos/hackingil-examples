@@ -23,13 +23,13 @@
   .ver 0:0:0:0
 }
 .module obfuscate.exe
-// MVID: {92C2732F-5364-4BA3-82E9-C8A5A0257B0D}
+// MVID: {A1FECE52-C96C-40FE-A320-58D9F9B04AEB}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x02F70000
+// Image base: 0x025F0000
 
 
 // =============== CLASS MEMBERS DECLARATION ===================
@@ -37,32 +37,40 @@
 .class private auto ansi beforefieldinit a.a
        extends [mscorlib]System.Object
 {
-  .method private hidebysig static void a(string[] args) cil managed
+  .field private static class [mscorlib]System.Random a
+  .method private hidebysig static void  a(string[] args) cil managed
   {
     .entrypoint
-    // Code size       13 (0xd)
+    // Code size       28 (0x1c)
     .maxstack  8
     IL_0000:  nop
-    IL_0001:  ldstr      "Hello obfusacate"
-    IL_0006:  call       void [mscorlib]System.Console::WriteLine(string)
-    IL_000b:  nop
-    IL_000c:  ret
+    IL_0001:  ldstr      "Hello obfusacate. Your password is: {0}"
+    IL_0006:  call       int32 a.a::a()
+    IL_000b:  box        [mscorlib]System.Int32
+    IL_0010:  call       string [mscorlib]System.String::Format(string,
+                                                                object)
+    IL_0015:  call       void [mscorlib]System.Console::WriteLine(string)
+    IL_001a:  nop
+    IL_001b:  ret
   } // end of method obfuscate::Main
 
   .method private hidebysig static int32 
           a() cil managed
   {
-    // Code size       7 (0x7)
-    .maxstack  1
+    // Code size       22 (0x16)
+    .maxstack  2
     .locals init (int32 V_0)
     IL_0000:  nop
-    IL_0001:  ldc.i4.0
-    IL_0002:  stloc.0
-    IL_0003:  br.s       IL_0005
+    IL_0001:  ldsfld     class [mscorlib]System.Random a.a::a
+    IL_0006:  callvirt   instance int32 [mscorlib]System.Random::Next()
+    IL_000b:  ldc.i4     0x539
+    IL_0010:  rem
+    IL_0011:  stloc.0
+    IL_0012:  br.s       IL_0014
 
-    IL_0005:  ldloc.0
-    IL_0006:  ret
-  } // end of method obfuscate::Method1
+    IL_0014:  ldloc.0
+    IL_0015:  ret
+  } // end of method obfuscate::CheckPassword
 
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor() cil managed
@@ -74,6 +82,16 @@
     IL_0006:  nop
     IL_0007:  ret
   } // end of method obfuscate::.ctor
+
+  .method private hidebysig specialname rtspecialname static 
+          void  .cctor() cil managed
+  {
+    // Code size       11 (0xb)
+    .maxstack  8
+    IL_0000:  newobj     instance void [mscorlib]System.Random::.ctor()
+    IL_0005:  stsfld     class [mscorlib]System.Random a.a::a
+    IL_000a:  ret
+  } // end of method obfuscate::.cctor
 
 } // end of class obfuscate.obfuscate
 
